@@ -13,6 +13,7 @@ const Nav = () => {
   useEffect(() => {
     (async () => {
       const res = await getProviders();
+      console.log("UseEffect", session);
       setProviders(res);
     })();
   }, []);
@@ -35,7 +36,7 @@ const Nav = () => {
           <div>
             <div className="flex gap-3 md:gap-5">
               <Link href="/create-prompt" className="black_btn">
-                Create Prompt
+                Create Post
               </Link>
               <button type="button" onClick={signOut} className="outline_btn">
                 Sign Out
