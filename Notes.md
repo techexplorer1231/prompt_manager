@@ -19,3 +19,10 @@ const User = models.User || model("User", UserSchema);
 
 export default User;
 ```
+
+##### How to get url parameters in Next.js
+
+```js
+const searchParams = useSearchParams();
+const promptId = searchParams.get("id");
+```

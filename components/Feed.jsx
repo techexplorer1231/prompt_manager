@@ -19,22 +19,45 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 const Feed = () => {
+  const [search, setSearch] = useState("");
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+
+  const fetchPosts = async () => {
+    const res = await fetch("/api/prompt");
+    const data = await res.json();
+
+    setPosts(data);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearch(searchText);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchText]);
+
+  useEffect(() => {
+    // call api here
+    const filteredPosts = async () => {
+      const res = await fetch(`/api/search/${search}`);
+      const data = await res.json();
+      console.log("filteredPosts", data);
+
+      setPosts(data);
+    };
+    if (!!search) filteredPosts();
+    else fetchPosts();
+  }, [search]);
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch("/api/prompt");
-      const data = await res.json();
-
-      setPosts(data);
-    };
-    fetchPosts();
-  }, []);
 
   return (
     <section className="feed">
