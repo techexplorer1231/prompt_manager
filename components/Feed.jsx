@@ -45,9 +45,8 @@ const Feed = () => {
   useEffect(() => {
     // call api here
     const filteredPosts = async () => {
-      const res = await fetch(`/api/search/${search}`);
+      const res = await fetch(`/api/search/${search.replace("#", "")}`);
       const data = await res.json();
-      console.log("filteredPosts", data);
 
       setPosts(data);
     };
@@ -57,6 +56,10 @@ const Feed = () => {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
+  };
+
+  const handleTagClick = (tag) => {
+    setSearchText(tag);
   };
 
   return (
@@ -72,7 +75,7 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={posts} handleTagClick={handleTagClick} />
     </section>
   );
 };
