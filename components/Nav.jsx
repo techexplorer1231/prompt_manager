@@ -4,9 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { signIn, signOut, getProviders, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
   const { data: session } = useSession();
+  const router = useRouter();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -26,8 +28,11 @@ const Nav = () => {
           width={30}
           height={30}
           className="object-contain"
+          onClick={() => router.push("/")}
         />
-        <p className="logo_text ml-2">Prompt-Manager</p>
+        <p className="logo_text ml-2" onClick={() => router.push("/")}>
+          Prompt-Manager
+        </p>
       </Link>
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
