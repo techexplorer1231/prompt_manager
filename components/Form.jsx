@@ -23,6 +23,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             onChange={(e) => setPost({ ...post, prompt: e.target.value })}
             placeholder="Write your prompt here..."
             required
+            maxLength={120}
             className="form_textarea"
           />
         </label>
